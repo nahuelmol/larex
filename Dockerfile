@@ -5,4 +5,4 @@ COPY . .
 RUN apk update
 RUN apk add --no-cache npm
 
-CMD["/start.sh"]
+CMD ["/start.sh"]
