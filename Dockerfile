@@ -1,6 +1,6 @@
 FROM richarvey/nginx-php-fpm:1.7.2
 
-COPY ..
+COPY . .
 
 RUN apk update
 RUN apk add --no-cache npm
