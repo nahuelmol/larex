@@ -24,6 +24,7 @@ class LoginController extends Controller {
         } else {
             $new_user = new User();
         }*/
+        return redirect()->route('/');
     }
     
     //for facebook

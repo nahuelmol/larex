@@ -12,13 +12,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('oauth')->group(function(){
-    Route::get('/google', [LoginController::class, 'redirectGoogle']);
-    Route::get('/google/callback', [LoginController::class, 'handlerGoogleCredentials']);
+    Route::group(['middleware' => ['web']], function(){
+        Route::get('/google', [LoginController::class, 'redirectGoogle']);
+        Route::get('/google/callback', [LoginController::class, 'handlerGoogleCredentials']);
+        
+        Route::get('/facebook', [LoginController::class, 'redirectFacebook']);
+        Route::get('/facebook/callback', [LoginController::class, 'handlerFacebookCredentials']);
+        
+        Route::get('/twitter', [LoginController::class, 'redirectTwitter']);
+        Route::get('/twitter/callback', [LoginController::class, 'handlerTwitterCredentials']);
+    });
     
-    Route::get('/facebook', [LoginController::class, 'redirectFacebook']);
-    Route::get('/facebook/callback', [LoginController::class, 'handlerFacebookCredentials']);
-    
-    Route::get('/twitter', [LoginController::class, 'redirectTwitter']);
-    Route::get('/twitter/callback', [LoginController::class, 'handlerTwitterCredentials']);
-
 });
