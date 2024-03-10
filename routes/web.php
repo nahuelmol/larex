@@ -12,3 +12,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [HomeController::class, 'message']);
+
+Route::get('/login', function(){
+    return view('Login');
+});
