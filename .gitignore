@@ -18,3 +18,5 @@ key.txt
 /.fleet
 /.idea
 /.vscode
+
+*.lock
