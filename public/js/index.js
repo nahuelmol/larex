@@ -59,6 +59,9 @@ function zoomin(xdata, ydata){
     let scaled = []
     scaled.push(xnew);
     scaled.push(ynew);
+
+    drawXaxis(factorx);
+    drawYaxis(factory);
     return scaled;
 }
 
@@ -143,15 +146,14 @@ function graphHandler(){
         xdataset = scaled[0];
         ydataset = scaled[1];
 
+        paintScreen();
         xdataset.forEach(xdat => {
             let index = xdataset.indexOf(xdat);
             let xpoint = xdat;
             let ypoint = ydataset[index]
 
-            console.log(`x:${xpoint}, y:${ypoint}`);
-
             const color = `rgb(255,0,0)`;
-            drawPixel(xpoint, ypoint, color);
+            drawPixel(xpoint, ypoint, color, 'obspanel', 4);
         })
     }
 }

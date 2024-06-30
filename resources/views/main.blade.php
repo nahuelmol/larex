@@ -17,7 +17,11 @@
             <p id="datashow">Data</p>
             <br>
             <br>
-            <canvas id="obspanel" with="200" height="200"></canvas>
+            <canvas id="yaxis" width="10" height="200"></canvas>
+            <canvas id="obspanel" with="400" height="200"></canvas>
+            <br>
+            <canvas id="origin" width="10" height="10"></canvas>
+            <canvas id="xaxis" width="400" height="10"></canvas>
             <br>
             <canvas id="modpanel" with="500" height="500"></canvas>
 
