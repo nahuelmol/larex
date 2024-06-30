@@ -7,7 +7,7 @@ const ctxMOD = canvasMOD.getContext('2d');
 
 function drawPixel(x, y, color) {
     ctxOBS.fillStyle = color;
-    ctxOBS.fillRect(x, y, 1, 1);
+    ctxOBS.fillRect(x, y, 4, 4);
 }
 
 function drawPARABOLA(x, y, color) {
@@ -24,7 +24,6 @@ for (let x = 0; x < canvasOBS.width; x++) {
         drawPixel(x, y, color);
     }
 }
-
 
 for (let x = 0; x < canvasOBS.width; x++) {
     let y = Math.pow(x, 2);

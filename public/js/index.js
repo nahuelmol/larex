@@ -1,7 +1,8 @@
 
 function checkData(){
-    let dataset = document.getElementById("dataset");
-    if (dataset.length > 0){
+    let par = document.getElementById('paragraph');
+    let len = par.textContent.length;
+    if (len > 0){
         return true
     }
     return false
@@ -23,7 +24,100 @@ function imporHandler(){
 
 function closeHandler(){
     var dialog = document.getElementById('dialogbox');
+    let dataset= document.getElementById('paragraph');
+    let table  = document.getElementById('datatable');
+    let stringCNT = "";
+    Array.from(table.rows).forEach((row,j) => {
+        Array.from(row.cells).forEach((cell,i) => {
+            if(i!=0 && j!=0){
+                stringCNT = stringCNT + `${cell.textContent}` + "\t"
+            }
+        })
+        stringCNT = stringCNT + "\n"
+    })
+    dataset.innerHTML = stringCNT;
     dialog.close();
+}
+
+function zoomin(xdata, ydata){
+    let xmax = Math.max(...xdata)
+    let ymax = Math.max(...ydata)
+
+    let obs = document.getElementById('obspanel');
+
+    let factorx = (obs.width - (obs.width)/4)/xmax;
+    let factory = (obs.height- (obs.height)/4)/ymax;
+
+    let xnew = [];
+    let ynew = [];
+    xdata.forEach(x => {
+        xnew.push(x * factorx);
+    })
+    ydata.forEach(y => {
+        ynew.push(y * factory);
+    })
+    let scaled = []
+    scaled.push(xnew);
+    scaled.push(ynew);
+    return scaled;
+}
+
+
+function setYdata(rawdata){
+    Array.from(rawdata).forEach(cchr => {
+        if(cchr == '\n'){
+            console.log("line");
+        } else if (cchr == '\t'){
+            console.log("data");
+        }
+    })
+}
+function isNumber(str) {
+    try {
+        parseFloat(str);
+    } catch(e){
+        console.log(e);
+        return false;
+    }
+    return true;
+}
+function setdata(rawdata){
+    let xdataready = [];
+    let ydataready = [];
+    let data = "";
+    let indepedent = true;
+    Array.from(rawdata).forEach(cchr => {
+        if(cchr == '\n'){
+            independent = true;
+            if(isNumber(data)){
+                let Y = parseFloat(data);
+                if(!isNaN(Y)){
+                    ydataready.push(Y);
+                }
+            }
+            data = "";
+        } else if (cchr == '\t'){
+            if(independent == true){
+                let X = parseFloat(data);
+                if(!isNaN(X)){
+                    xdataready.push(X);
+                }
+            } else {
+                let Y = parseFloat(data);
+                if(!isNaN(Y)){
+                    ydataready.push(Y);
+                }
+            }
+            independent = false;
+            data = "";
+        } else {
+            data = data + cchr;
+        }
+    })
+    let set = [];
+    set.push(xdataready);
+    set.push(ydataready);
+    return set
 }
 
 function graphHandler(){
@@ -35,6 +129,30 @@ function graphHandler(){
         let msg = "data is sufficient"
         let datashow = document.getElementById('datashow');
         datashow.innerHTML = msg;
+
+        let data = document.getElementById('paragraph');
+        let rawdata = data.textContent;
+        let set = setdata(rawdata);
+        let xdataset = set[0];
+        let ydataset = set[1];
+
+        const canvasOBS= document.getElementById('obspanel');
+        const ctxOBS = canvasOBS.getContext('2d');
+
+        let scaled = zoomin(xdataset,ydataset);
+        xdataset = scaled[0];
+        ydataset = scaled[1];
+
+        xdataset.forEach(xdat => {
+            let index = xdataset.indexOf(xdat);
+            let xpoint = xdat;
+            let ypoint = ydataset[index]
+
+            console.log(`x:${xpoint}, y:${ypoint}`);
+
+            const color = `rgb(255,0,0)`;
+            drawPixel(xpoint, ypoint, color);
+        })
     }
 }
 
@@ -53,6 +171,7 @@ function checkHandler(){
 var graph = document.getElementById('graphBtn');
 var check = document.getElementById('checkBtn');
 var impor = document.getElementById('imporBtn');
+
 impor.addEventListener('click', imporHandler);
 check.addEventListener('click', checkHandler);
 graph.addEventListener('click', graphHandler);

@@ -8,14 +8,16 @@
     <body>
         <div class='container'>
             <p>Inversor</p>
-            <div id="dataset"></div>
+            <div id="dataset">
+                <p id="paragraph"></p>
+            </div>
             <button id="graphBtn">Graph</button>
             <button id="checkBtn">Check Data</button>
             <button id="imporBtn">Import</button>
             <p id="datashow">Data</p>
             <br>
             <br>
-            <canvas id="obspanel" with="500" height="500"></canvas>
+            <canvas id="obspanel" with="200" height="200"></canvas>
             <br>
             <canvas id="modpanel" with="500" height="500"></canvas>
 
