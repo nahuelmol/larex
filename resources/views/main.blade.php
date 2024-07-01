@@ -37,6 +37,8 @@
                 <button id="ediTableBtn">Start table editing</button>
                 <button id="closeDlgBtn">Close</button>
 
+                <p id="currentSelection"></p>
+
                 <div id="tableContainer">
                     <button id="addBtn">Add</button>
                     <button id="delBtn">Del</button>

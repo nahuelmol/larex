@@ -101,6 +101,8 @@ function startTable(){
                 button.textContent = `${i}`;
                 button.addEventListener('click', event => {
                     takeTheRow(event);
+                    let current = document.getElementById('currentSelection');
+                    current.innerHTML = `${i}`;
                 });
                 button.className = "tableIndex";
                 cell.appendChild(button);
@@ -117,6 +119,8 @@ function startTable(){
                 button.textContent = charLetter;
                 button.addEventListener('click', () => {
                     takeTheCol();
+                    let current = document.getElementById('currentSelection');
+                    current.innerHTML = charLetter;
                 });
                 button.className = "tableIndex";
                 cell.appendChild(button);

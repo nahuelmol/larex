@@ -20,6 +20,9 @@ function imporHandler(){
 
     var add = document.getElementById('addBtn');
     var del = document.getElementById('delBtn');
+
+    add.addEventListener('click', addhandler);
+    del.addEventListener('click', delhandler);
 }
 
 function closeHandler(){
@@ -170,9 +173,68 @@ function checkHandler(){
     }
 }
 
+function delhandler(){
+}
+function isCol(cnt){
+    try {
+        parseFloat(cnt);
+    } catch(e){
+        return true;
+    }
+    return false;
+}
+function addhandler(){
+    //row and column
+    let table = document.getElementById('datatable');
+    let selection = document.getElementById('currentSelection');
+    let cnt = selection.textContent;
+    if(isCol(cnt)){
+        console.log('is is a col')
+        let code = cnt.charCodeAt(0);
+        let position = code - 64;
+        Array.from(table.rows).forEach((row,ri) => {
+            Array.from(row.cells).forEach((cell, index) => {
+                if(index == position){
+                    const newCell = document.createElement('td');
+                    row.appendChild(newCell);
+                }
+            })
+        })
+    } else {
+        let firstrow = table.rows[0];
+        let len = firstrow.cells.length;
+        let row = table.insertRow(Number(cnt));
+        for(let i=0;i<len;i++){
+            let newCell = document.createElement('td');
+            if(i == 0){
+                console.log("cero")
+                let button = document.createElement('button');
+                button.textContent = cnt;
+                button.className = 'tableIndex';
+                newCell.appendChild(button);
+            } else {
+                newCell.contentEditable = "true";
+            }
+            row.appendChild(newCell);
+        }
+
+        Array.from(table.rows).forEach((row,i) => {
+            if(i >= Number(cnt)){
+                Array.from(row.cells).forEach((cell,j) => {
+                    if(j == 0){
+                        let newcell = Number(cell.textContent) + 1;
+                        cell.innerHTML = newcell;
+                    }
+                })
+            }
+        })
+    }
+}
+
 var graph = document.getElementById('graphBtn');
 var check = document.getElementById('checkBtn');
 var impor = document.getElementById('imporBtn');
+
 
 impor.addEventListener('click', imporHandler);
 check.addEventListener('click', checkHandler);
