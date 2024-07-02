@@ -23,6 +23,7 @@ function imporHandler(){
 
     add.addEventListener('click', addhandler);
     del.addEventListener('click', delhandler);
+
 }
 
 function closeHandler(){
@@ -189,7 +190,6 @@ function addhandler(){
     let selection = document.getElementById('currentSelection');
     let cnt = selection.textContent;
     if(isCol(cnt)){
-        console.log('is is a col')
         let code = cnt.charCodeAt(0);
         let position = code - 64;
         Array.from(table.rows).forEach((row,ri) => {
@@ -201,29 +201,35 @@ function addhandler(){
             })
         })
     } else {
-        let firstrow = table.rows[0];
-        let len = firstrow.cells.length;
+        let len = table.rows[0].cells.length;
         let row = table.insertRow(Number(cnt));
         for(let i=0;i<len;i++){
             let newCell = document.createElement('td');
-            if(i == 0){
-                console.log("cero")
-                let button = document.createElement('button');
-                button.textContent = cnt;
-                button.className = 'tableIndex';
-                newCell.appendChild(button);
-            } else {
-                newCell.contentEditable = "true";
-            }
+            console.log('all->' + i);
             row.appendChild(newCell);
         }
 
         Array.from(table.rows).forEach((row,i) => {
-            if(i >= Number(cnt)){
+            if(i == Number(cnt)){
+                let button = document.createElement('button');
+                button.textContent = cnt;
+                button.className = 'tableIndex';
+
+                Array.from(row.cells).forEach((cell,icell) => {
+                    if(icell == 0){
+                        cell.appendChild(button);
+                    } else {
+                        cell.contentEditable = "true";
+                    }
+                })
+            }
+            if(i > Number(cnt)){
                 Array.from(row.cells).forEach((cell,j) => {
                     if(j == 0){
-                        let newcell = Number(cell.textContent) + 1;
-                        cell.innerHTML = newcell;
+                        let newcell = Number(cnt) + 1;
+                        console.log(newcell);
+                        let butt = cell.getElementsByTagName('button');
+                        butt.textContent = newcell;
                     }
                 })
             }

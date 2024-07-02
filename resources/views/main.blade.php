@@ -14,7 +14,16 @@
             <button id="graphBtn">Graph</button>
             <button id="checkBtn">Check Data</button>
             <button id="imporBtn">Import</button>
+            <button id="calculateBtn">Calculate</button>
             <p id="datashow">Data</p>
+            <br>
+            <br>
+            <label for="depth"></label>
+            <input type="text" id="depthInput" name="depth"></input>
+            <label for="nblck"></label>
+            <input type="text" id="nblckInput" name="nblck"></input>
+            <label for="width"></label>
+            <input type="text" id="widthInput" name="width"></input>
             <br>
             <br>
             <canvas id="yaxis" width="10" height="200"></canvas>
@@ -29,6 +38,7 @@
             <script src="{{ asset('js/index.js') }}"></script>
             <script src="{{ asset('js/obspanel.js') }}"></script>
             <script src="{{ asset('js/graphs.js') }}"></script>
+            <script src="{{ asset('js/takeparameters.js') }}"></script>
         </div>
         <div>
             <dialog id="dialogbox">

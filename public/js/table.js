@@ -25,6 +25,12 @@ function takeTheRow(event) {
     let row = but.parentElement;
     let ind = row.parentElement.rowIndex;
 
+    let table = document.getElementById('datatable');
+    Array.from(table.rows).forEach((row,i) => {
+        if(i == ind){
+            row.focus();
+        }
+    })
     console.log("index:" + ind);
 }
 
@@ -45,8 +51,54 @@ function takeTheCol(event) {
     })
 }
 
-function startTable(){
+function gettingClipboard(event){
+    event.preventDefault();
+    const result = (event.clipboardData || window.clipboard).getData('text');
 
+    let ele = document.activeElement;
+    let pivotrow  = ele.parentNode.rowIndex;
+    let pivotcell = ele.cellIndex;
+    let table = document.getElementById('datatable');
+
+    let data = [];
+    data.push([]);
+    Array.from(result).forEach(ch => {
+        if(ch == '\n'){
+            data.push([]);
+        } else {
+            if(ch != '\t'){
+                let last = data.length - 1;
+                data[last].push(ch);
+            }
+        }
+    })
+
+    let ii = 0;
+    let ij = 0;
+    Array.from(table.rows).forEach((row,i) => {
+        Array.from(row.cells).forEach((cell,j) => {
+            if((i>=pivotrow) && (j>=pivotcell)){
+                let width = data[0].length;
+                if(ii < data.length){
+                    if(ij < width){
+                        console.log(`data[${ii}][${ij}] -> table[${i},${j}]`);
+                        cell.textContent = data[ii][ij];
+                        if(ij == (width -1)){
+                            ij = -1;
+                            ii++;
+                        }
+                        ij++;
+                    } else {
+                        ii++;
+                        ij = 0;
+                    }
+                }
+            }
+        })
+    })
+}
+
+function startTable(){
     let tableContainer = document.getElementById('tableContainer');
     let table = document.createElement('table');
     table.id = "datatable"
@@ -87,7 +139,7 @@ function startTable(){
     table.border= "1"
 
     let cols = 4;
-    let rows = 4;
+    let rows = 14;
 
     for(let i = 0;i< rows;i++){
         let row  = document.createElement('tr');
@@ -128,6 +180,7 @@ function startTable(){
                 cell.contentEditable = "true";
                 cell.textContent = "";
             }
+            cell.addEventListener('paste', gettingClipboard);
             row.appendChild(cell);
         }
         table.appendChild(row);
