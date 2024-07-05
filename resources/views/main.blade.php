@@ -18,12 +18,16 @@
             <p id="datashow">Data</p>
             <br>
             <br>
-            <label for="depth"></label>
+            <label for="depth">Depth:</label>
             <input type="text" id="depthInput" name="depth"></input>
-            <label for="nblck"></label>
+            <label for="nblck">Nblock</label>
             <input type="text" id="nblckInput" name="nblck"></input>
-            <label for="width"></label>
+            <label for="width">Width block:</label>
             <input type="text" id="widthInput" name="width"></input>
+            <label for="iesp">Initial espesor:</label>
+            <input type="text" id="iespInput" name="iesp"></input>
+            <label for="icontrast">Initial contrast:</label>
+            <input type="text" id="icontrastInput" name="icontrast"></input>
             <br>
             <br>
             <canvas id="yaxis" width="10" height="200"></canvas>
@@ -32,7 +36,9 @@
             <canvas id="origin" width="10" height="10"></canvas>
             <canvas id="xaxis" width="400" height="10"></canvas>
             <br>
-            <canvas id="modpanel" with="500" height="500"></canvas>
+            <canvas id="panelprove" with="500" height="500"></canvas>
+            <br>
+            <canvas id="modpanel" with="500" height="150"></canvas>
 
             <script src="{{ asset('js/table.js') }}"></script>
             <script src="{{ asset('js/index.js') }}"></script>

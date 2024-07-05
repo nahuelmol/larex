@@ -51,18 +51,10 @@ function takeTheCol(event) {
     })
 }
 
-function gettingClipboard(event){
-    event.preventDefault();
-    const result = (event.clipboardData || window.clipboard).getData('text');
-
-    let ele = document.activeElement;
-    let pivotrow  = ele.parentNode.rowIndex;
-    let pivotcell = ele.cellIndex;
-    let table = document.getElementById('datatable');
-
+function formData(stringData){
     let data = [];
     data.push([]);
-    Array.from(result).forEach(ch => {
+    Array.from(stringData).forEach(ch => {
         if(ch == '\n'){
             data.push([]);
         } else {
@@ -72,6 +64,19 @@ function gettingClipboard(event){
             }
         }
     })
+    return data;
+}
+
+function gettingClipboard(event){
+    event.preventDefault();
+    const result = (event.clipboardData || window.clipboard).getData('text');
+
+    let ele = document.activeElement;
+    let pivotrow  = ele.parentNode.rowIndex;
+    let pivotcell = ele.cellIndex;
+    let table = document.getElementById('datatable');
+
+    let data = formData();
 
     let ii = 0;
     let ij = 0;

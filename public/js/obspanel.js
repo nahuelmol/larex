@@ -87,7 +87,10 @@ paintScreen();
 drawXaxis(1);
 drawYaxis(1);
 
-const MODsize = 100;
+const MODsize = 10;
+const canvas = document.getElementById('panelprove');
+canvasMOD.width = canvas.width;
+canvasMOD.height= canvas.height;
 const xmod = (canvasMOD.width - MODsize) /2;
 const ymod = (canvasMOD.height - MODsize) /2;
 
