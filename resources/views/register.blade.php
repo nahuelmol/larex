@@ -7,12 +7,16 @@
     <head>
     <body>
         <div class='container'>
-            <form action="{{ url('login') }}" method='POST'>
-                <label for='email'>Name:</label><br>
-                <input type='email' name='email'>
-
-                <label for='username'></label>
+            <form action="{{ url('adduser') }}" method='POST'>
+                @csrf
+                <label>Username:</label><br>
                 <input type='text' name='username'>
+
+                <label>Email:</label>
+                <input type='text' name='email'>
+
+                <label>Age:</label>
+                <input type='text' name='age'>
 
                 <input type='submit' value='Submit'>
             </form>
