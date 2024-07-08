@@ -7,7 +7,6 @@ return [
     'default' => env('FIREBASE_PROJECT', 'app'),
     'projects' => [
         'app' => [
-
             'credentials' => [
                 "type" => env('FIREBASE_TYPE'),
                 "project_id" => env('FIREBASE_PROJECT_ID'),

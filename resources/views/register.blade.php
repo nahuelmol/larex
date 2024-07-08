@@ -7,7 +7,7 @@
     <head>
     <body>
         <div class='container'>
-            <form action="{{ url('adduser') }}" method='POST'>
+            <form action="{{ route('reguser') }}" method='POST'>
                 @csrf
                 <label>Username:</label><br>
                 <input type='text' name='username'>
@@ -15,8 +15,8 @@
                 <label>Email:</label>
                 <input type='text' name='email'>
 
-                <label>Age:</label>
-                <input type='text' name='age'>
+                <label>Password:</label>
+                <input type='password' name='password'>
 
                 <input type='submit' value='Submit'>
             </form>
