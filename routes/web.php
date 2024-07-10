@@ -19,13 +19,12 @@ Route::get('/aboutus', [AboutController::class, 'response'])->name('aboutus');
 
 
 //views
-Route::get('/login', [AccountsController::class, 'login'])->name('loginview');
-Route::get('/register', [AccountsController::class, 'register'])->name('registerview');
-Route::get('/logout', [AccountsController::class, 'logout'])->name('logoutview');
+Route::get('/login', [AccountsController::class, 'login'])->name('login');
+Route::get('/register', [AccountsController::class, 'register'])->name('register');
 //APIs
 Route::post('/auth-user', [LoginController::class, 'login'])->name('authuser');
 Route::post('/reg-user', [RegisterController::class, 'register'])->name('reguser');
-Route::get('/logout', [LogoutController::class, 'logout'])->name('outuser');
+Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 //view
 Route::get('/form-folder', [Folder::class, 'create'])->name('formfolder');

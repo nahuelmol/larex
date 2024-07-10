@@ -24,10 +24,10 @@ class RegisterController extends Controller {
             session(['token' => $token]);
             session(['email' => $email]);
             Session::flash('success', 'Registration succesfull');
-            return redirect('/');
+            return redirect()->route('register');
         } catch(FailedToSignIn $e){
             Session::flash('error', 'retry');
-            return redirect('/register')->withErrors(['error' => 'Registration failed'.$e->getMessage()]);
+            return redirect()->route('register')->withErrors(['error' => 'Registration failed'.$e->getMessage()]);
         }
     }
 }

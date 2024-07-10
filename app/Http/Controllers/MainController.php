@@ -22,10 +22,6 @@ class MainController extends Controller {
         $token_session = session('token');
         $data = [];
         if(!$token_session){
-            $data = [
-                'token' => $token_session,
-                'email' => $email_session,
-            ];
             return view('home');
         }
         $usersfolder = [];
@@ -48,9 +44,10 @@ class MainController extends Controller {
             $message = [
                 'error' => 'error:'.$e->getMessage(),
             ];
-            return redirect()->route('loginview')->withErrors($message);
+            return redirect()->route('login')->withErrors($message);
         }
         $data = [
+            'firebase_session' => true,
             'email' => $data['email'],
             'folders' => $usersfolder,
         ];

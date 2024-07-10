@@ -10,6 +10,6 @@ class LogoutController extends Controller
     public function logout(Request $request){
         Auth::logout();
         session()->flush();
-        return redirect('/register');
+        return redirect()->route('register');
     }
 }
