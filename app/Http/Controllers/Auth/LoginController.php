@@ -21,16 +21,21 @@ class LoginController extends Controller {
         $email = $request->input('email');
         $pass = $request->input('password');
         try{
+            session()->flush();
             $result = $this->firebaseAuth->signInWithEmailAndPassword($email, $pass);
+            $idToken = $result->idToken();
             $user = $result->data();
-            Session::flash('sucess', 'user logged');
-            $token = $request->input('_token');
-            session(['token' => $token]);
+            $CSRFtoken = $request->input('_token');;
+            session(['token' => $idToken]);
+            session(['CSRFtoken' => $CSRFtoken]);
             session(['email' => $email]);
-            return redirect('/');
+            return redirect()->route('home');
         } catch(FailedToSignIn $e){
-            Session::flash('error', 'Login failed');
-            return redirect('/login')->withErrors(['error' => 'Failed to sign in.'.$e->getMessage()]);
+            session('CSRFtoken')->forget();
+            $message = [
+                'error' => 'Failed to sign in: '.$e->getMessage(),
+            ];
+            return redirect()->route('login')->withErrors($message);
         }
    }
 }
