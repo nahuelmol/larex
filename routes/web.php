@@ -17,7 +17,6 @@ Route::get('/calculator', [MainController::class, 'calculator'])->name('calculat
 
 Route::get('/aboutus', [AboutController::class, 'response'])->name('aboutus');
 
-
 //views
 Route::get('/login', [AccountsController::class, 'login'])->name('login');
 Route::get('/register', [AccountsController::class, 'register'])->name('register');

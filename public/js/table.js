@@ -54,6 +54,7 @@ function takeTheCol(event) {
 function formData(stringData){
     let data = [];
     data.push([]);
+    let number = "";
     Array.from(stringData).forEach(ch => {
         if(ch == '\n'){
             data.push([]);
@@ -75,7 +76,6 @@ function gettingClipboard(event){
     let pivotrow  = ele.parentNode.rowIndex;
     let pivotcell = ele.cellIndex;
     let table = document.getElementById('datatable');
-
     let data = formData();
 
     let ii = 0;

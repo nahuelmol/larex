@@ -43,33 +43,6 @@ function closeHandler(){
     dialog.close();
 }
 
-function zoomin(xdata, ydata){
-    let xmax = Math.max(...xdata)
-    let ymax = Math.max(...ydata)
-
-    let obs = document.getElementById('obspanel');
-
-    let factorx = (obs.width - (obs.width)/4)/xmax;
-    let factory = (obs.height- (obs.height)/4)/ymax;
-
-    let xnew = [];
-    let ynew = [];
-    xdata.forEach(x => {
-        xnew.push(x * factorx);
-    })
-    ydata.forEach(y => {
-        ynew.push(y * factory);
-    })
-    let scaled = []
-    scaled.push(xnew);
-    scaled.push(ynew);
-
-    drawXaxis(factorx);
-    drawYaxis(factory);
-    return scaled;
-}
-
-
 function setYdata(rawdata){
     Array.from(rawdata).forEach(cchr => {
         if(cchr == '\n'){
@@ -128,6 +101,7 @@ function setdata(rawdata){
 }
 
 function graphHandler(){
+    charting();
     if(!checkData()){
         let msg = "imposible to graph -> not sufficient data available"
         let datashow = document.getElementById('datashow');
@@ -136,29 +110,6 @@ function graphHandler(){
         let msg = "data is sufficient"
         let datashow = document.getElementById('datashow');
         datashow.innerHTML = msg;
-
-        let data = document.getElementById('paragraph');
-        let rawdata = data.textContent;
-        let set = setdata(rawdata);
-        let xdataset = set[0];
-        let ydataset = set[1];
-
-        const canvasOBS= document.getElementById('obspanel');
-        const ctxOBS = canvasOBS.getContext('2d');
-
-        let scaled = zoomin(xdataset,ydataset);
-        xdataset = scaled[0];
-        ydataset = scaled[1];
-
-        paintScreen();
-        xdataset.forEach(xdat => {
-            let index = xdataset.indexOf(xdat);
-            let xpoint = xdat;
-            let ypoint = ydataset[index]
-
-            const color = `rgb(255,0,0)`;
-            drawPixel(xpoint, ypoint, color, 'obspanel', 4);
-        })
     }
 }
 
