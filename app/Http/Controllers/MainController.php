@@ -24,15 +24,26 @@ class MainController extends Controller {
         if(!$token_session){
             return view('home');
         }
-        $usersfolder = [];
+        $users = [];
         try {
             $verifiedToken = $this->firebaseAuth->verifyIdToken($token_session);
             $uid = $verifiedToken->claims()->get('sub');
             $tablename = $this->tablename;
             $value = $this->database->getReference($tablename)->getValue();
+            if($value == null){
+                $data['firebase_session'] = false;
+                return view('home', ['data' => $data]);
+            }
             foreach($value as $key => $record){
                 if($uid == $record['userid']){
-                    array_push($usersfolder, $record['content']);
+                    $sets = [];
+                    $user = [
+                        'title' => $record['title'],
+                        'description' => $record['description'],
+                        'time' => $record['time'],
+                        'sets' => $sets,
+                    ];
+                    array_push($users, $user);
                 }
             }
             $user = $this->firebaseAuth->getUser($uid);
@@ -49,7 +60,7 @@ class MainController extends Controller {
         $data = [
             'firebase_session' => true,
             'email' => $data['email'],
-            'folders' => $usersfolder,
+            'folders' => $users,
         ];
         return view('home', ['data' => $data]);
     }

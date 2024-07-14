@@ -18,6 +18,9 @@ class RegisterController extends Controller {
         $email = $request->input('email');
         $pass = $request->input('password');
         try {
+            if(($email == null) or ($pass == null)){
+                return redirect()->route('register');
+            }
             $result = $this->firebaseAuth->createUserWithEmailAndPassword($email, $pass);
             $user = $result->data();
             $token = $request->input('_token');

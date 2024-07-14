@@ -45,21 +45,39 @@
                     </svg>
                 </div>
                 <div class="mt-16">
-                    @if(isset($data['folders']))
+                    @if(isset($data['firebase_session']))
                         <p>Folders</p>
+                        @if($data['folders'])
                         @foreach ($data['folders'] as $item)
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                            <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
                                     <div>
-                                    <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">{{ $data['email'] }}</h2>
-                                    <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    <p>{{ $item }}</p>
+                                    <h2 id="foldername" class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">{{ $item['title'] }}</h2>
+                                    <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{{ $item['description'] }}</p>
+                                    <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{{ $item['time'] }}</p>
+                                    <button id="viewsetId">View sets</button>
+                                    <button id="addsetId">Add sets</button>
                                     </div>
-                                </p>
                             </div>
                         </div>
+                        <dialog id="dialogViewer"></dialog>
+                        <dialog id="dialogAdder">
+                            <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+                                <form id="formToSet" action="{{ route('addset') }}" method='POST'>
+                                    @csrf
+                                    <label>Name:</label>
+                                    <input type='text' name='name'>
+                                    <label>Data:</label>
+                                    <input type='text' name='data'>
+                                    <input type='hidden' id="hiddenField" name='folder'>
+
+                                    <input type='submit' value='Create'>
+                                </form>
+                            </div>
+                        </dialog>
                         <br>
                         @endforeach
+                        @endif
                     @endif
                 </div>
 
@@ -118,5 +136,6 @@
                 </div>
             </div>
         </div>
+        <script src="{{ asset('js/sets.js') }}"></script>
     </body>
 </html>

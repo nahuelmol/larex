@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\FoldersStoring;
+use App\Http\Controllers\SetStoring;
 
 Route::get('/', [MainController::class, 'home'])->name('home');
 Route::get('/calculator', [MainController::class, 'calculator'])->name('calculator');
@@ -32,3 +33,5 @@ Route::post('/create-folder', [FoldersStoring::class, 'create'])->name('createfo
 Route::post('/delete-folder', [FoldersStoring::class, 'delete'])->name('deletefolder');
 Route::post('/edit-folder',   [FoldersStoring::class, 'edit'])->name('editfolder');
 
+//sets api
+Route::post('/add-set', [SetStoring::class, 'add'])->name('addset');

@@ -1,3 +1,5 @@
+tests
+/resources/views/text.txt
 /.phpunit.cache
 /node_modules
 /public/build
